@@ -1,2 +1,2 @@
-# codesoft
-the tasks related to my codesoft internship 
+# codesoft/task 1
+ my codesoft internship task NumberGuessGame
