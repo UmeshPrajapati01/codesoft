@@ -1,1 +1,66 @@
-Tast 1 Codesoft virtual Internship. 
+import java.util.Random;
+import java.util.Scanner;
+
+public class NumberGuessGame {
+
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        Random randomGenerator = new Random();
+        boolean keepPlaying = true;
+        int totalScore = 0;
+
+        System.out.println("=== Welcome to the Number Guessing Game ===");
+
+        while (keepPlaying) {
+            int secretNumber = randomGenerator.nextInt(100) + 1; // 1 to 100
+            int maxTries = 7;
+            int attempts = 0;
+            boolean guessedCorrectly = false;
+
+            System.out.println("\nI have selected a number between 1 and 100.");
+            System.out.println("Can you guess it? You have " + maxTries + " attempts.");
+
+            while (attempts < maxTries) {
+                System.out.print("Enter your guess: ");
+                int guess;
+
+                // Input validation
+                if (input.hasNextInt()) {
+                    guess = input.nextInt();
+                } else {
+                    System.out.println("Please enter a valid number!");
+                    input.next(); // consume invalid input
+                    continue;
+                }
+
+                attempts++;
+
+                if (guess == secretNumber) {
+                    System.out.println("Congratulations! You guessed the correct number in " + attempts + " tries.");
+                    totalScore += (maxTries - attempts + 1); // Score logic
+                    guessedCorrectly = true;
+                    break;
+                } else if (guess > secretNumber) {
+                    System.out.println("Too high!");
+                } else {
+                    System.out.println("Too low!");
+                }
+            }
+
+            if (!guessedCorrectly) {
+                System.out.println("Sorry! You've used all attempts. The number was: " + secretNumber);
+            }
+
+            System.out.print("\nWould you like to play another round? (yes/no): ");
+            String response = input.next().toLowerCase();
+
+            if (!response.equals("yes")) {
+                keepPlaying = false;
+                System.out.println("\nYour final score: " + totalScore);
+                System.out.println("Thanks for playing!");
+            }
+        }
+
+        input.close();
+    }
+}
